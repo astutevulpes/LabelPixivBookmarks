@@ -52,7 +52,7 @@ let unsafeWindow_ = unsafeWindow,
 // selectors
 const BANNER = ".bg-surface1 > div:first-child";
 const THEME_CONTAINER = "html";
-const WORK_SECTION = "section:has(h2)"; // 作品section，从works->pagination
+const WORK_SECTION = "section"; // 作品section，从works->pagination
 const WORK_CONTAINER = "section ul"; // 仅包含作品
 const PAGE_BODY = '#__next [data-overlay-container="true"] > div:first-child'; // 自主页、收藏起下方
 const EDIT_BUTTON_CONTAINER = "section > div:first-child"; // 管理收藏按钮父容器，包含左侧作品文字
