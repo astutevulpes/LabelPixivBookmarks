@@ -604,7 +604,7 @@ async function clearBookmarkTags(works) {
 async function handleClearBookmarkTags(evt) {
   evt.preventDefault();
   const selected = [
-    ...document.querySelectorAll("label>div[aria-disabled='true']"),
+    ...document.querySelectorAll("label:has(input:checked) > div[aria-disabled]"),
   ];
   if (!selected.length) return;
 
@@ -3058,8 +3058,6 @@ async function initializeVariables() {
         el.classList.replace(prevTextColor, textColor);
       },
     );
-    const prevClearTag = theme ? "dydUg" : "jbzOgz";
-    const clearTag = theme ? "jbzOgz" : "dydUg";
     const clearTagsButton = document.querySelector("#clear_tags_button");
     if (clearTagsButton) {
       const clearButtonBgColor = theme
@@ -3068,10 +3066,6 @@ async function initializeVariables() {
       const clearButtonTextColor = theme
         ? "rgba(255, 255, 255, 0.88)"
         : "rgba(0, 0, 0, 0.88)";
-      clearTagsButton.querySelector("div").style.backgroundColor =
-        clearButtonBgColor;
-      clearTagsButton.querySelector("div > div").style.color =
-        clearButtonTextColor;
     }
   }).observe(themeDiv, { attributes: true });
 
