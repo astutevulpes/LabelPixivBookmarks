@@ -2,7 +2,7 @@
 // @name         Pixiv收藏夹自动标签
 // @name:en      Label Pixiv Bookmarks
 // @namespace    http://tampermonkey.net/
-// @version      5.20
+// @version      5.21
 // @description  自动为Pixiv收藏夹内图片打上已有的标签，并可以搜索收藏夹
 // @description:en    Automatically add existing labels for images in the bookmarks, and users are able to search the bookmarks
 // @author       philimao
@@ -20,7 +20,7 @@
 
 // ==/UserScript==
 
-const version = "5.20";
+const version = "5.21";
 const latest = `♢ 处理Pixiv组件类名更新
 ♢ Update constants due to change of element class names
 ♢ 并非所有功能都已恢复，仅验证了设置标签功能
