@@ -604,7 +604,9 @@ async function clearBookmarkTags(works) {
 async function handleClearBookmarkTags(evt) {
   evt.preventDefault();
   const selected = [
-    ...document.querySelectorAll("label:has(input:checked) > div[aria-disabled]"),
+    ...document.querySelectorAll(
+      "label:has(input:checked) > div[aria-disabled]",
+    ),
   ];
   if (!selected.length) return;
 
@@ -3058,6 +3060,21 @@ async function initializeVariables() {
         el.classList.replace(prevTextColor, textColor);
       },
     );
+
+    const pillBgColor = theme
+      ? "rgba(0, 0, 0, 0.04)"
+      : "rgba(255, 255, 255, 0.08)";
+    const pillTextColor = theme
+      ? "rgba(0, 0, 0, 0.88)"
+      : "rgba(255, 255, 255, 0.88)";
+
+    ["clear_tags_button", "remove_tag_button"].forEach((id) => {
+      const el = document.querySelector("#" + id);
+      if (el) {
+        el.style.backgroundColor = pillBgColor;
+        el.style.color = pillTextColor;
+      }
+    });
   }).observe(themeDiv, { attributes: true });
 
   synonymDict = getValue("synonymDict", {});
@@ -3414,8 +3431,12 @@ async function injectElements() {
         return;
       document.querySelector("#label_bookmarks_buttons")?.remove();
       [
-        "#label_modal", "#search_modal", "#generator_modal",
-        "#feature_modal", "#progress_modal", "#all_tags_modal",
+        "#label_modal",
+        "#search_modal",
+        "#generator_modal",
+        "#feature_modal",
+        "#progress_modal",
+        "#all_tags_modal",
       ].forEach((sel) => document.querySelector(sel)?.remove());
 
       delay(800)
