@@ -3058,15 +3058,6 @@ async function initializeVariables() {
         el.classList.replace(prevTextColor, textColor);
       },
     );
-    const clearTagsButton = document.querySelector("#clear_tags_button");
-    if (clearTagsButton) {
-      const clearButtonBgColor = theme
-        ? "rgba(255, 255, 255, 0.08)"
-        : "rgba(0, 0, 0, 0.04)";
-      const clearButtonTextColor = theme
-        ? "rgba(255, 255, 255, 0.88)"
-        : "rgba(0, 0, 0, 0.88)";
-    }
   }).observe(themeDiv, { attributes: true });
 
   synonymDict = getValue("synonymDict", {});
