@@ -3408,17 +3408,45 @@ async function injectElements() {
 
     console.log("[Label Bookmarks] Injected");
 
-    window.addEventListener(
-      "popstate",
-      () => {
-        if (window.location.href.match(/\/users\/\d+\/bookmarks\/artworks/))
-          delay(1000)
-            .then(() => waitForDom(ALL_TAGS_CONTAINER))
-            .then(createModalElements)
-            .then(injectElements);
-      },
-      { once: true },
-    );
+    //intercept history.pushState, history.replaceState and popstate event to reinject elements when navigating between pages without reloading
+    function onNavigate() {
+      if (!window.location.href.match(/\/users\/\d+\/bookmarks\/artworks/))
+        return;
+      document.querySelector("#label_bookmarks_buttons")?.remove();
+      [
+        "#label_modal", "#search_modal", "#generator_modal",
+        "#feature_modal", "#progress_modal", "#all_tags_modal",
+      ].forEach((sel) => document.querySelector(sel)?.remove());
+
+      delay(800)
+        .then(() => waitForDom(NAV))
+        .then(initializeVariables)
+        .then(createModalElements)
+        .then(injectElements)
+        .catch(console.log);
+    }
+
+    if (!window._lbNavPatched) {
+      window._lbNavPatched = true;
+
+      let navTimer = null;
+      function debouncedNavigate() {
+        clearTimeout(navTimer);
+        navTimer = setTimeout(onNavigate, 100);
+      }
+
+      const _pushState = history.pushState.bind(history);
+      history.pushState = function (state, title, url) {
+        _pushState(state, title, url);
+        debouncedNavigate();
+      };
+      const _replaceState = history.replaceState.bind(history);
+      history.replaceState = function (state, title, url) {
+        _replaceState(state, title, url);
+        debouncedNavigate();
+      };
+      window.addEventListener("popstate", debouncedNavigate);
+    }
 
     return true;
   }
